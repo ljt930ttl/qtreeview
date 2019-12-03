@@ -31,13 +31,15 @@ class OrgEdit(QtWidgets.QWidget, Ui_Form):
     def __inittree(self):
         import orgtreemodel
         import user_data
-        # u = user_data.user()
-        # userdata = u.getUser4A()
-        userdata = {}
-        with open('deparment.json', 'r', encoding='utf8') as fp:
-            json_in = fp.read().replace('\\', '')
-            deparment = json.loads(json_in, encoding='utf8')
-        t_data = deparment["deptDatas"]
+        u = user_data.user()
+        userdata = u.getUser4A()
+        # userdata = {}
+        # with open('deparment.json', 'r', encoding='utf8') as fp:
+        #     json_in = fp.read().replace('\\', '')
+        #     department = json.loads(json_in, encoding='utf8')
+        deptdatas = u.getdept4A()
+        department = json.loads(deptdatas, encoding='utf8')
+        t_data = department["deptDatas"]
 
         self.verticalLayout_tree = QtWidgets.QVBoxLayout(self.widget_treeview_org)
         self.verticalLayout_tree.setContentsMargins(0, 0, 0, 0)
@@ -100,7 +102,9 @@ class OrgEdit(QtWidgets.QWidget, Ui_Form):
             self.verticalLayout_info.addItem(self.spacerItem)
 
             self.w_info.lineEdit_Name.setText(item.getItemName())
-            self.w_info.lineEdit_bizOrgId.setText(item.getItemId())
+            self.w_info.lineEdit_userId.setText(item.getItemId())
+            self.w_info.lineEdit_bizOrgId.setText(item.getItemUid())
+            # self.w_info.lineEdit_baseOrgName.setText(item.getItemOrgName())
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

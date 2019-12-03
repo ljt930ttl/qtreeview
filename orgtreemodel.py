@@ -215,7 +215,10 @@ class userItem(TreeItem):
     def getItemUid(self):
         return self.itemData['bizOrgId']
     def getItemCode(self):
+
         return self.itemData['loginName']
+    # def getItemOrgName(self):
+    #     return self.itemData['baseOrgName']
 
 class TreeModel(QtCore.QAbstractItemModel):
     def __init__(self, parent=None):

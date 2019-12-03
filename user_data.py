@@ -8,6 +8,7 @@
 
 
 import time
+import mysqloper
 def get_time_stamp():
     ct = time.time()
     local_time = time.localtime(ct)
@@ -19,19 +20,27 @@ def get_time_stamp():
 class user():
     def __init__(self):
         self._myconf = {
-            'host': '192.168.186.128',
+            'host': '127.0.0.1',
             'port': 3306,
-            'user': 'cyg',
+            'user': 'root',
             'passwd': '123456'
         }
         pass
-    def getUser4A(self):
-        import mysqloper
-        # print(get_time_stamp())
-        _myexec = mysqloper.MysqlExec(self._myconf)
-        if not _myexec.sql_noresult("use gzpw_psm70"):
+        self._myexec = mysqloper.MysqlExec(self._myconf)
+
+    def getdept4A(self):
+        if not self._myexec.sql_noresult("use pw_test"):
             return dict()
-        values, fields=_myexec.getTableValue('t_user4a')
+        values, fields=self._myexec.getTableValue('t_department4a')
+        return values[0][1]
+        # for value in values:
+
+    def getUser4A(self):
+        # print(get_time_stamp())
+
+        if not self._myexec.sql_noresult("use pw_test"):
+            return dict()
+        values, fields=self._myexec.getTableValue('t_user4a')
 
         print(get_time_stamp())
         # user_data = list()
@@ -56,9 +65,10 @@ class user():
 
 if __name__ == '__main__':
     u = user()
-    u.getUser4A()
+    d = u.getdept4A()
     s = u'中国南方电网有限责任公司'
-    print({s})
+    print(d)
+
     # ddd = dict()
     # for i in range(5):
     #     if ddd.get('text'):
